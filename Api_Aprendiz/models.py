@@ -1,10 +1,10 @@
 from django.db import models
 
-class  Aprendices(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellidos = models.URLField(max_length=100)
-    fecha_de_nacimiento = models.DateField()
-    documento = models.
-    tipo_de_docuento =
-    numero_de_ficha = 
+class Aprendices(models.Model):
+    nombres = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=100)
+    año = models.DateField(max_length=10)
+    documento = models.IntegerField()
+    tipo_de_documento = models.CharField(max_length=10)
+    numero_de_ficha = models.PositiveIntegerField()
     

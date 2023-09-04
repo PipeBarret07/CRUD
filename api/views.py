@@ -13,7 +13,7 @@ class CompanyView(View):
     def dispatch(self, request, *args, **kwargs): 
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, id= 0):
+    def get(self, request, id = 0):
         if(id > 0):
             companies = list(Company.objects.filter(id=id).values())
             if len(companies) > 0:
