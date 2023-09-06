@@ -2,7 +2,7 @@ from typing import Any
 from django import http
 from django.http.response import JsonResponse
 from django.views import View
-from .models import Company
+from .models import Company, Developer
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -62,9 +62,35 @@ class CompanyView(View):
 
         return JsonResponse(datos)       
     
-# Obtener un nombre 
-# Obtener un apellido
-# Obtener la fecha de nacimiento
-# Obtener un documento
-# Obtener un tipo de docuento
-# Obtener un numero de ficha
+
+class DeveloperView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs): 
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get(self, request, id = 0):
+        if(id > 0):
+            developer = Developer.objects.get(id = id)
+            if developer:
+                datos = {'message': 'Success', 'Developer': developer}
+            else: 
+                datos = {'message': 'Developer not found...'}
+        else:
+            developers = list(Developer.objects.values())
+            if(len(developers) > 0):
+                datos = {'message': 'Success', 'Developers': developers}
+            else: 
+                datos = {'message': 'Developer not found...'}
+
+        return JsonResponse(datos)
+    
+    def post(self, request):
+        jd = json.loads(request.body)
+        company = Company.objects.get(id=jd['company'])
+        Developer.objects.create(name=jd['name'], company=company)
+        datos = {'message': 'Success'}
+        return JsonResponse(datos)    
+
+
+

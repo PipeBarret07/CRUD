@@ -8,3 +8,5 @@ class Aprendices(models.Model):
     tipo_de_documento = models.CharField(max_length=10)
     numero_de_ficha = models.PositiveIntegerField()
     
+    def __str__(self):
+        return self.nombres
